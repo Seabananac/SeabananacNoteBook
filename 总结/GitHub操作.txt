@@ -1,0 +1,104 @@
+GitHub：
+
+本地创建了一个项目，需要上传到github中
+		1).本地先创建一个空的项目
+		2).在github中也创建一个一模一样的项目
+			点击-》头像左边的加号"+"-》
+			点击-》New repository
+			填写项目名称需要跟本地的名称一致
+			填写项目描述
+			两个选项
+				public 		公开的 		
+				private 	私有的
+			点击-》Create repository
+			推荐每个项目都有这三个文件
+				README 			说明文档 		
+				LICENSE 		开源许可证
+				.gitignore 		忽略 
+			在本地项目中创建README文件
+			需要在项目目录中执行以下代码
+				git init
+				git add README.txt
+				git commit -m "first commit"
+				git remote add origin https://github.com/itwenqiang/demo.git
+				git push -u origin master
+			提示输入用户名(***最好输入主邮箱)
+			提示输入密码(***linux中输入密码看不到)
+
+			上传
+ 				git add 文件
+ 				git commit -m "备注"
+ 				git push
+ 			git add . 			添加所有
+ 			git add --all 		删除文件的时候使用
+
+			玩git hub 一定要 学会问：git status
+===============================================
+	github中已有的项目，下载到本地
+		点击-》Clone or downloaded
+		把链接复制下来
+
+		git clone 链接
+
+
+		开发之前拉取最新
+			git pull
+
+		工作流程
+			git pull
+			操作
+			git add
+			git commit -m "备注"
+			git push
+
+===============================================
+    注册
+		用户名 	必须英文字母开头
+		邮箱 	填写sina邮箱
+		密码 	英文+数字
+
+		点击 Sign up for Github
+
+	配置邮箱
+		点击-》头像-》点击-》settings
+			点击emails
+			登录sina邮箱
+				打开github发送的邮件
+				点击里面的连接
+			跳转到新的github页面
+	从新添加另一个邮箱
+		点击-》头像-》点击-》settings
+			点击emails
+			添加另一个邮箱
+			点击add
+				打开qq邮箱
+				点击里面的连接
+			跳转到新的github页面
+	添加SSH Key 		秘钥
+		生成一个秘钥
+		打开命令行
+			ssh-keygen -t rsa -C "主邮箱"
+				一路回车
+		需要找到生成的秘钥
+			在用户目录下有一个.ssh文件夹
+			id_rsa
+			id_rsa.pub 		√
+		**不能使用任何编辑器打开这个文件
+			只能通过记事本打开此文件
+			把里面的内容全选，复制
+		点击头像-》点击settings-》
+		点击-》SSH and GPG keys-》
+		点击-》New SSH key
+		输入两个东西
+			title
+				用户名
+			key
+				粘贴
+		点击-》Add SSH key
+	配置信息
+		邮箱和用户名
+		git config -l 		查看有哪些配置
+		用户名
+		git config --global user.name "用户名"(一定跟ssh key的名字保持一致)
+		邮箱
+		git config --global user.email "主邮箱"

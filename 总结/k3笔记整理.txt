@@ -1,0 +1,549 @@
+﻿
+/**  注：有未整理完成知识点 **/
+
+
+笔记整理：
+    K3
+    ---------------------------------------------
+	requirejs 遵循的是 AMD 异步模块定义规范
+	seajs     遵循的是 CMD 通用模块定义规范
+	定义模块：define(function(r,e,m){})
+	使用模块：seajs.use()
+
+	cookie:
+    注意环境
+      1、在服务器环境 -> 以域为单位
+      2、默认cookie有效时间 -> 
+                               expries session ->会话
+      浏览器的会话：
+             从打开到关闭,完成了一次会话
+      3、都是字符串
+      4、cookie不安全
+          域 -> 域名
+          设置：document.cookie = 'key = value'  格式
+          获取：document.cookie = 多条 name = 1; name2 = 2; name3 = 3;
+          修改：document.cookie = 'name = 4'
+          删除：设置过期日期之前的时间
+          有效时间：
+		key=value;expires=时间
+	注意的问题：
+		1.在服务器环境 ? 以域为单位的
+		2.默认的cookie 的有效时间 expries session-> 会话
+		3.都是字符串
+		4.cookie 不安全
+		5.特别珍贵 4k-10k
+
+	**jq能实现的js一定能实现
+	**jq不能实现的js也能实现
+
+	seajs
+		国产
+		定义模块：
+			define(function(require,exports,module){
+				//require(vt. 需要；要求；命令)   引入（想要）模块
+				//exports(出口，输出(export的第三人称单数 );传播，输出（思想或活动）)   导出模块
+				//module(模块;组件;)    批量导出模块
+				alert(1);
+			});
+			
+		使用模块：
+			最基本的使用方式：
+				seajs.use('2');
+			引入单个的使用方式：
+				seajs.use('1',function(mod){alert(mod.a);});
+			引入多个的使用方式：
+		引入模块：
+			require   引入（想要）模块
+				var a=require('1');	
+		写一个网站
+			js引入的顺序不对就出错
+		优点/好处： 
+			1.解决文件（模块）相互依赖
+			2.解决命名冲突
+			3.自动引入js
+	        4.降低代码耦合
+
+	**关于ajax
+	不能跨域；
+	必须配合服务器玩。
+	    全称：
+	        Asynchronous Javascript And XML
+	        无刷新从服务器取数据
+ 		        异步 		 javascript 和 	XML
+		        异步javascript和XML
+		 回调函数：
+		   这个函数只需要定义，不需要调用
+		 **fnsucc  成功回调函数
+		 **fnFaild 失败的回调函数
+
+		注意：
+		  1、获取到的所有的数据都是字符串
+		        eval解析json方式：
+		            eval('('+result+')')
+		            new Function('return' +result)();
+		            
+		  2、注意编码
+		        编码要统一 （utf-8）
+
+		  3、不关心后缀名
+
+		  4、缓存问题
+		      多次访问同一地址会触发缓存
+		      解决办法：
+		         每次地址随机
+		      随机数：
+		          Math.random()
+
+		***关于手写ajax:
+			1、创建一个ajax对象
+			         if(wintpRequest){
+			           varnew quest();
+			       }else{
+			           varnew jectft.XMLHTTP')
+			       }
+			        ***var oAjax2 = new ActiveXObject('Microsoft.XMLHTTP')
+			           只兼容IE6，7，8
+			2、建立连接
+			         oAjax.open('GET',url,true)
+			3、发送数据
+			         oAjax.send();
+			4、接收数据
+			           oAjax.onreadystatechange = function(){
+			           if(oAjax.readystate == 4){
+			                   
+			           }else{
+
+			           }
+			        }
+			ajax 状态：
+			   0   准备成功，未发送
+			   1   发送成功
+			   2   接收原始数据完成
+			   3   解析原始数据完成
+			   4   完成
+	字符编码：
+	   Unicode编码
+
+	        //  转换成Unicode编码
+	        var str = '小白兔';
+	        var str2 = encodeURIComponent(str);
+	        document.write(str2);
+
+	        //  转换成汉字
+	        var arr = '%E5%B0%8F%E7%99%BD%E5%85%94';（释义：小白兔）
+	        var arr2 = decodeURIComponent(arr);
+	        document.write(arr2)
+
+	**关于jsonp:
+	      可以跨域，动态创建<script>标签；
+	注意：
+	    1）、回调函数必须是全局的
+	    2）、script标签是一次性的
+		     每次输入的时候都重新创建一个script标签
+
+	封装：
+		jsonp(url,success);
+
+		替换
+		str.replace('被替换的','替换成谁')
+
+		jsonp(url,data,success);
+
+		jsonp(url,cbName,data,success);
+
+	**手写jsonp：
+	   function jsonp(json){
+			参数初始值
+			如果没有url直接return
+			设置回调名字
+			超时时间(ms)
+			设置data
+			回调函数的名字(解决了缓存问题)
+			把回调函数名字中的.去掉。
+			网络超时
+			定义回调函数(全局的)
+		        把网络超时干掉
+		        需要把script删除
+		        执行成功回调函数
+			获取head标签。
+			动态创建script
+			给script加src
+			把script插入到head标签中
+		}
+
+	**ajax如何跨域？
+	   ajax不能跨域，jsonp可以跨域，通过动态创建<script>标签执行服务端提供的脚本语句来跨域。
+
+	**ajax和jsonp的区别：
+	   ajax使用XMLHTTPRequsert进行交互
+	   jsonp不使用XMLHttpRequest
+
+	jsonp开发流程
+		1.获取接口
+		2.分析接口的数据格式
+		3.进行交互
+
+    正则：
+        正则表达式：Regular Expression
+		作用：
+			1).操作字符串
+			2).表单校验
+		正则：校验，减轻服务器压力。
+		*正则不属于任何语言，性能非常高。
+
+		创建正则对象：
+		var re = new RegExp('规则','选项');
+		    str.search(re) 		搜索
+			str.match(re) 		匹配
+			str.repalce(str,str)                替换
+		范围
+			/[a-z]/ 			所有小写字母
+			/[A-Z]/ 			所有大写字母
+			/[0-9]/ 			所有数字
+			/[a-zA-Z0-9]/ 		所有的英文字母和数字
+
+		任选一个
+			/[abc]/ 			a b c
+			/[ac]/ 				a c
+			/a[abc]c/ 			aac 	abc 	acc
+
+		排除
+			/[^a-z]/ 			除了小写字母
+			/[^A-Z]/ 			除了大写字母
+			/[^0-9]/ 			除了数字
+			/[^a-zA-Z0-9]/ 		除了英文和数字
+		量词
+			{n} 			有n个
+			{n,m} 			最少有n个，最多有m个。
+			{n,} 			最少有n个，最多不限
+
+			? 	{0,1} 		出现一次或者不出现
+			* 	{0,} 		不出现或者出现(出现多少不管)
+			+ 	{1,} 		最少一次，最多不限	
+		转义
+			\d 				所有数字
+			\w 				所有英文字母和数字和_
+			\s 				所有的空白符号
+			\D 				除了数字
+			\W 				除了英文和数字和_
+			\S 				除了空白符号
+			. 				所有的字符
+			\. 		        正常的字符串.
+		**校验的时候分步来写
+
+		邮箱校验：
+		     /^\w+@[a-zA-Z0-9\-]+(\.[a-zA-Z]{2,6}){1,2}$/
+		固定电话：
+		     /^0[1-9]\d{1,2}\-[1-9]\d{6,7}$/
+		手机号码：
+		     /^1[34578]\d{9}$/
+		身份证号校验：
+		    /^[1-9]\d{13}(([0-9xX])|(\d{3}[0-9xX]))$/ 
+
+	解释什么是作用域链？
+        先在自身找，如果找不到，找父函数，如果父函数找不到，找父函数的父函数，以此类推，一直往上找，直到找到全局，如果全局有，就用，没有就报错。
+
+	解释什么是闭包？
+		只要里面的函数还有用，整条作用域链上的变量都不会消失。
+		定义父函数，父函数中定义局部变量，在子函数中可以使用父函数中的局部变量。
+
+	关于网络性能优化
+		减少http请求
+			100连接 	100请求 	100等待 	100接收
+			1连接 		1请求 		1等待 		1接收
+		合并文件
+			减少大小
+		压缩文件：GZIP压缩
+		使用CDN加速
+			更快、更稳定、更安全。
+		使用DNS加速
+	执行性能
+			1.尽量用正则操作字符串
+			2.使用严格模式
+			3.减少DOM操作
+			4.尽量使用CSS3
+			5.最好不用全局变量
+			6.尽量不要使用属性
+
+	面向对象：
+	    对象 	由什么组成?
+			属性&方法
+
+			属性和变量的区别？
+			属性和变量，变量谁也不属于，属性属于某个对象。
+
+			方法和函数的区别？
+			方法和函数，函数谁也不属于，方法属于某个对象。
+
+			构造函数：帮助我们创建对象的。
+			 		规范：首字母要大写
+						 	属性给构造函数加
+						 	方法要给构造函数的原型加
+						 	构造函数.prototype
+	 		属性给构造函数加
+	 		方法给构造函数的原型加
+
+ 		Person
+ 			属性：name 		age
+ 			方法：showName() 	showAge()
+
+ 		function Person(name,age){
+ 			this.name = name;
+ 			this.age = age;
+ 		}
+
+ 		Person.prototype.showName = function(){
+ 			return this.name;
+ 		};
+
+ 		Person.prototype.showAge = function(){
+ 			return this.age;
+ 		};
+ 		递归
+		思想：大事化小。
+		斐波那契数列
+			特点：每次都是前两次的和
+
+	this 		具体是什么需要看调用
+		1)调用有不同方式，有优先级。
+			高
+				new 			object
+				定时器 			window
+				事件 			触发事件的元素
+				方法 			方法属于的那个元素
+				正常调用		window||undefined
+			低
+		2)定时器、事件只管一层；
+		3)一定要看最后一次调用；
+
+	typeof：检测基本数据类型
+	       string，number，boolean，undefined，function，object
+    instanceof：检测复合数据类型
+	       a instanceof b
+    constructor：检测构造函数
+           a.constructor==b
+
+    *异常一
+		Object instanceof Function 			true
+		Function instanceof Object 			true
+		Object instanceof Object 			true
+		Function instanceof Function 		true
+
+	异常二
+		arr instanceof Array 			true
+		Array instanceof Function 		true
+		arr instanceof Function 		false
+
+	异常三
+		Object.prototype.a = 12;
+		var a = 5;
+		alert(a.a); 						12
+		alert(a instanceof Object); 		false
+
+
+		Object.prototype.a = 12;
+		var a = new Number(5);
+		alert(a.a); 						12
+		alert(a instanceof Object); 		true
+	查看对象身上的属性和方法
+		for(var name in obj){
+			document.write(name+'<br />');
+		}
+	数据库
+		mysql
+
+		库 	 	管理表的 		本身不能存数据
+		表 		真正存储数据的 		真正存数据
+		行 	        某一条数据
+		列 	        某一项数据
+	操作数据库
+		1.命令行 		
+		2.可视化操作（Navicat）
+		3.Web形式操作
+
+		**数据库管理可视化：http://localhost/phpmyadmin/
+
+		1.创建一个数据库
+			输入数据库名字，选择编码，点击创建
+		2.创建一个表
+			输入表名，输入列数。点击执行
+			字段
+
+			类型	
+				INT 		整数 			12 	5 	3
+				FLOAT 		单精度浮点数 	1.1 12.5 
+				DOUBLE 		双精度浮点数 	超过一位小数
+				CHAR 		字符
+				VARCHAR 	字符串
+				TEXT 		大字符串
+			长度
+			点击保存
+	3.给表插入数据
+
+	**操作数据：增删改查
+
+	
+	php操作mysql数据
+		1.建立连接
+			mysql_connect(连接地址,用户名,密码);
+					连接地址
+						localhost
+					用户名
+						root
+					密码
+						空字符串
+						admin
+						root
+		2.选择数据库
+			mysql_select_db(数据库名字);
+		3.执行SQL语句
+			$result = mysql_query(SQL语句);
+			$result 	查询到的结果
+
+		4.遍历数据
+			$row = mysql_fetch_row($result);
+    
+	**库和框架的区别？
+		库 		jquery
+			辅助程序员开发
+			程序员占主导位置
+		框架 	angularjs
+			限制程序员开发
+			框架占主导位置
+
+	AngularJS
+	   致力于解决交互所带来的痛苦
+       特点：
+         双向绑定
+         依赖注入
+         *只关心写法，不关心顺序
+
+	function 			     angular 自带的方法
+		angular.bind 					矫正this
+		angular.copy  					复制对象
+		angular.element 				小jquery
+		angular.equals 					比较是否相等
+		angular.isArray 				查看是否是数组
+		angular.isDate 					查看是否是日期
+	 	angular.lowercase 				转小写
+	 	angular.uppercase 				转大写
+	 	angular.forEach(对象,function(value,key){
+			key 	下标、名字
+			value 	值
+		});
+
+	 	**angular.module 				应用模块
+
+	directive  			指令  ng
+		ng-app 				确定angular生效的范围
+					        整个页面中只能出现一次
+		数据从哪里来
+			ng-model
+		数据到哪里去
+			ng-bind 			不能操作input
+		单向绑定
+			ng-model
+			ng-bind
+		双向绑定
+			ng-model
+			ng-model
+		ng-init 				初始化
+		ng-repeat 				重复
+		ng-show 				是否显示（true 	显示  	false   不显示）		
+		ng-hide 				是否隐藏（true 	隐藏 	false 	显示）
+		ng-click 				点击
+
+	    **ng-repeat的时候
+			如果有重复的就会报错，解决方案:
+			ng-repeat="item in arr track by $index"
+
+	父子控制器之间的数据传递
+		子级给父级传递数据
+			发送
+				$scope.emit();
+			接收
+				$scope.on();
+
+		父级给子级传递数据
+			发送
+				$scope.broadcast();
+			接收
+				$scope.on();
+	控制器写法
+		app.controller(name,function($scope){
+			$scope.a = 12;
+		});
+
+		app.controller(name,['$scope',function(abc){
+			abc.a = 12;
+		}]);
+	脏检查
+		$scope.$apply(function(){
+
+		});
+		$interval
+		$timeout
+	自定义过滤器
+		cap 				首字母大写
+		app.filter(过滤器的名字,function(){
+			return function(input){
+	 			需要过滤的东西
+			};
+		});
+	算法：
+		   解决问题的方法
+		   1、在一个数组中查找某一个数字  线性查找（从前往后找）   性能不高
+		   2、二分查找
+
+		------------------------------------------
+		   线性         最少      最多     平均
+
+		   100           1         100      50
+
+		-----------------------------------------
+		 
+		   二分         最少      最多     平均
+
+		   100           1       log₂n     log₂n/2
+		------------------------------------------
+				线性 		二分 		倍数
+		100 		50 	        4 		12.5
+		1W 		5000 		7 		714
+		100W 		50W 		10 		5W
+		1亿 		5000W 		13.5            370W
+		------------------------------------------
+		二分法：万能的方法 
+
+		冒泡排序   bubbleSort
+		  
+		选择排序   selectionSort
+
+		归并排序   margeSort
+
+		快速排序   quickSort
+		
+		数据结构：
+		    数据的结构
+		  算法的好坏，完全由数据结构决定。
+
+		  数据有四个操作：
+
+			  增,删,改,查
+
+		    有序
+		    无序
+		    队列
+		       先进先出，后进后出
+		    堆栈
+		       先进后出，后进先出
+		    二叉
+		       binary tree
+		    散列
+		       hash
+    高级运动：
+        sin：Math.sin();
+	    cos：Math.cos();
+		     注意:里面放的都是弧度
+    ------------------------------------------------------------------------
+
+    /** node.js,高级运动，JQuery **/
