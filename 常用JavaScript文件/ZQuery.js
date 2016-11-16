@@ -1,3 +1,6 @@
+/*
+ Zquery 1.0,0 Copyright (c) 2016 - 2017 The Seabananac All Rights Reserved.
+*/
 
 function ZQuery(arg){
     this.elements = [];
