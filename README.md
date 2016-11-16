@@ -1,6 +1,6 @@
 # SeabananacNoteBook
 
-✎Javascript on the finishing and experience.
+✎ Javascript on the finishing and experience.
 
 
-©All rights reserved.
+©  All rights reserved.
