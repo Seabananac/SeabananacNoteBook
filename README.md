@@ -1,2 +1,6 @@
 # SeabananacNoteBook
-This is My NoteBook
+
+✎Javascript on the finishing and experience.
+
+
+©All rights reserved.
